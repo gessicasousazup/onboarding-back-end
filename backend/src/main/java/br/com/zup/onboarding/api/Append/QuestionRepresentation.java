@@ -1,7 +1,6 @@
-package br.com.zup.onboarding.api;
+package br.com.zup.onboarding.api.Append;
 
 public class QuestionRepresentation {
-
 	private Long id;
 
 	public Long getId() {
@@ -11,5 +10,4 @@ public class QuestionRepresentation {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 }

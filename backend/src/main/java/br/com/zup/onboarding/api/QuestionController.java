@@ -1,43 +1,34 @@
 package br.com.zup.onboarding.api;
+
+//Importações necessárias
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import br.com.zup.onboarding.api.Append.CreateQuestion;
+import br.com.zup.onboarding.api.Append.QuestionRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import br.com.zup.onboarding.api.CreateQuestion;
-import br.com.zup.onboarding.api.QuestionRepresentation;
+import org.springframework.web.bind.annotation.*;
 import br.com.zup.onboarding.models.Question;
 import br.com.zup.onboarding.services.QuestionService;
 
-
-
+//RestController (caminhos) da aplicação
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/question")
 public class QuestionController {
-	
 	@Autowired
 	private QuestionService questionService;
 
+	//Requerimento GET na rota "/"
 	@GetMapping("/")
 	public ResponseEntity<?> showQuestions(HttpSession session) {
-
-		if (questionService.quantityQuestions() > 0) {
-			return ResponseEntity.ok(questionService.showAllQuestions());
-		}
+		if (questionService.quantityQuestions() > 0) return ResponseEntity.ok(questionService.showAllQuestions());
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
+
+	//Requerimento GET na rota "/" mediante ao ID
 	@GetMapping("/{id}")
 	public ResponseEntity<?> takeQuestionById(@PathVariable long id) {
 		try {
@@ -50,20 +41,21 @@ public class QuestionController {
 		}
 	}
 
+	//Requerimento POST
 	@PostMapping
 	public ResponseEntity<QuestionRepresentation> saveQuestion(@Valid @RequestBody CreateQuestion question) {
-
 		try {
 			Question newQuestion = questionService.createQuestion(question);
-
 			QuestionRepresentation representation = new QuestionRepresentation();
 			representation.setId(newQuestion.getId());
+
 			return ResponseEntity.status(HttpStatus.CREATED).body(representation);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 	}
 
+	//Requerimento DELETE
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteQuestion(@PathVariable long id) {
 		try {
@@ -89,7 +81,6 @@ public class QuestionController {
 			return ResponseEntity.ok().body(questionService.updateQuestion(id, question));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
 		}
 	}
 
