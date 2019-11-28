@@ -20,6 +20,7 @@ public class Question implements Serializable {
 	private String description;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "question_id")
 	private List<Alternative> alternatives;
 
 	public Question() { }
