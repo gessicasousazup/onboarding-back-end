@@ -15,7 +15,7 @@ public class Theme implements Serializable {
     private Long id;
 
     @NotNull
-    private String stepName;
+    private String themeName;
     private String description;
 
     @ManyToOne
@@ -34,11 +34,11 @@ public class Theme implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getStepName() {
-        return stepName;
+    public String getThemeName() {
+        return themeName;
     }
-    public void setStepName(String stepName) {
-        this.stepName = stepName;
+    public void setThemeName(String stepName) {
+        this.themeName = stepName;
     }
     public String getDescription() {
         return description;

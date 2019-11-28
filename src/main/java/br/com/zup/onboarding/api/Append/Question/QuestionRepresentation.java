@@ -1,4 +1,4 @@
-package br.com.zup.onboarding.api.Append;
+package br.com.zup.onboarding.api.Append.Question;
 
 public class QuestionRepresentation {
 	private Long id;

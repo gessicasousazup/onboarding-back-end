@@ -1,11 +1,9 @@
 package br.com.zup.onboarding.api;
 
-//Importações necessárias
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
-import br.com.zup.onboarding.api.Append.CreateQuestion;
-import br.com.zup.onboarding.api.Append.QuestionRepresentation;
+import br.com.zup.onboarding.api.Append.Question.QuestionCreate;
+import br.com.zup.onboarding.api.Append.Question.QuestionRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import br.com.zup.onboarding.models.Question;
 import br.com.zup.onboarding.services.QuestionService;
 
-//RestController (caminhos) da aplicação
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/question")
@@ -21,14 +18,12 @@ public class QuestionController {
 	@Autowired
 	private QuestionService questionService;
 
-	//Requerimento GET na rota "/"
 	@GetMapping("/")
 	public ResponseEntity<?> showQuestions(HttpSession session) {
 		if (questionService.quantityQuestions() > 0) return ResponseEntity.ok(questionService.showAllQuestions());
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
-	//Requerimento GET na rota "/" mediante ao ID
 	@GetMapping("/{id}")
 	public ResponseEntity<?> takeQuestionById(@PathVariable long id) {
 		try {
@@ -41,9 +36,8 @@ public class QuestionController {
 		}
 	}
 
-	//Requerimento POST
 	@PostMapping
-	public ResponseEntity<QuestionRepresentation> saveQuestion(@Valid @RequestBody CreateQuestion question) {
+	public ResponseEntity<QuestionRepresentation> saveQuestion(@Valid @RequestBody QuestionCreate question) {
 		try {
 			Question newQuestion = questionService.createQuestion(question);
 			QuestionRepresentation representation = new QuestionRepresentation();
@@ -55,7 +49,6 @@ public class QuestionController {
 		}
 	}
 
-	//Requerimento DELETE
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteQuestion(@PathVariable long id) {
 		try {

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import br.com.zup.onboarding.api.Append.CreateQuestion;
+import br.com.zup.onboarding.api.Append.Question.QuestionCreate;
 import br.com.zup.onboarding.models.Alternative;
 import br.com.zup.onboarding.models.Question;
 import br.com.zup.onboarding.repositories.QuestionRepository;
@@ -24,7 +24,7 @@ public class QuestionService {
 		return questionRepository.findById(id).get();
 	}
 
-	public Question createQuestion(CreateQuestion input) {
+	public Question createQuestion(QuestionCreate input) {
 		Question question = new Question();
 
 		question.setDescription(input.getDescription());

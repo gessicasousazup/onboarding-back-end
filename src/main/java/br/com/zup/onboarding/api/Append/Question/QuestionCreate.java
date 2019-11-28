@@ -1,24 +1,20 @@
-package br.com.zup.onboarding.api.Append;
+package br.com.zup.onboarding.api.Append.Question;
 
-//Importações necessárias
 import java.util.List;
 import com.fasterxml.jackson.annotation.*;
 
-//Classe para criação de questões
-public class CreateQuestion {
-	//Propriedades da questão
+public class QuestionCreate {
 	private String description;
 	private List<AlternativePart> alternatives;
 
-	//Método para pegar as informações do json da questão
 	@JsonCreator
-	public CreateQuestion(@JsonProperty("description") String description,
+	public QuestionCreate(@JsonProperty("description") String description,
 						  @JsonProperty("alternatives") List<AlternativePart> alternatives) {
+
 		this.description = description;
 		this.alternatives = alternatives;
 	}
 
-	//Getters e Setters da classe
 	public String getDescription() {
 		return description;
 	}
@@ -32,14 +28,13 @@ public class CreateQuestion {
 		this.alternatives = alternatives;
 	}
 
-	//??
 	public static class AlternativePart {
 		private String description;
 		private Boolean correct;
 
 		@JsonCreator
 		public AlternativePart(@JsonProperty("description") String description,
-				@JsonProperty("correct") Boolean correct) {
+							   @JsonProperty("correct") Boolean correct) {
 			this.description = description;
 			this.correct = correct;
 		}
