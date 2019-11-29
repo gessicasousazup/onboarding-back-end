@@ -14,7 +14,6 @@ public class QuestionService {
 
 	@Autowired
 	private QuestionRepository questionRepository;
-	@Autowired
 	public Iterable<Question> showAllQuestions() {
 		return questionRepository.findAll();
 	}

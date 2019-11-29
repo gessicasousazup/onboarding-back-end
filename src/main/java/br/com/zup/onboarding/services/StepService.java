@@ -16,7 +16,6 @@ public class StepService {
     @Autowired
     private StepRepository stepRepository;
 
-    @Autowired
     public Iterable<Step> showAllSteps() { return stepRepository.findAll(); }
     public long quantitySteps() { return stepRepository.count(); }
     public Step takeStepById(long id) { return stepRepository.findById(id).get(); }
