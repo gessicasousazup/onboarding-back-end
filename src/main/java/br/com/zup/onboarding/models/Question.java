@@ -14,7 +14,7 @@ public class Question implements Serializable {
 	private Long id;
 
 	@ManyToOne
-	private Theme theme;
+	private Step step;
 
 	@NotNull
 	private String description;

@@ -4,7 +4,6 @@ import br.com.zup.onboarding.api.Append.Step.StepCreate;
 import br.com.zup.onboarding.models.Alternative;
 import br.com.zup.onboarding.models.Question;
 import br.com.zup.onboarding.models.Step;
-import br.com.zup.onboarding.models.Theme;
 import br.com.zup.onboarding.repositories.StepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,35 +25,28 @@ public class StepService {
         step.setStepName(stepInput.getStepName());
         step.setDescription(stepInput.getDescription());
         step.setDuration(stepInput.getDuration());
-        step.setTheme(stepInput.getThemes().stream().map(themePart -> {
-            Theme theme = new Theme();
+        step.setQuestion(stepInput.getQuestion().stream().map(questionPart -> {
+            Question question = new Question();
 
-            theme.setThemeName(themePart.getNameTheme());
-            theme.setDescription(themePart.getDescription());
-            theme.setQuestions(themePart.getQuestions());
-            theme.setQuestions(themePart.getQuestions().stream().map(questionPart -> {
-                Question question = new Question();
+            question.setDescription(questionPart.getDescription());
+            question.setAlternatives(questionPart.getAlternatives().stream().map(alternativePart -> {
+                Alternative alternative = new Alternative();
 
-                question.setDescription(questionPart.getDescription());
-                question.setAlternatives(questionPart.getAlternatives().stream().map(alternativePart -> {
-                    Alternative alternative = new Alternative();
+                alternative.setDescription(alternativePart.getDescription());
+                alternative.setCorrect(alternativePart.isCorrect());
 
-                    alternative.setDescription(alternativePart.getDescription());
-                    alternative.setCorrect(alternativePart.isCorrect());
-
-                    return alternative;
-                }).collect(Collectors.toList()));
-
-                return question;
+                return alternative;
             }).collect(Collectors.toList()));
 
-            return theme;
+            return question;
         }).collect(Collectors.toList()));
 
         stepRepository.save(step);
         return step;
     }
+
     public void deleteStep(long id) { stepRepository.deleteById(id); }
+
     public Step updateStep(long id, Step step) {
         Step stepIntern;
         stepIntern = stepRepository.findById(id).get();

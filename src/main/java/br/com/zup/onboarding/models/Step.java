@@ -25,7 +25,7 @@ public class Step implements Serializable {
     private String duration;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Theme> theme;
+    private List<Question> question;
 
     //Construtores da classe
     public Step() { }
@@ -55,10 +55,10 @@ public class Step implements Serializable {
     public void setDuration(String duration) {
         this.duration = duration;
     }
-    public List<Theme> getTheme() {
-        return this.theme;
+    public List<Question> getQuestion() {
+        return this.question;
     }
-    public void setTheme(List<Theme> theme) {
-        this.theme = theme;
+    public void setQuestion(List<Question> question) {
+        this.question = question;
     }
 }
