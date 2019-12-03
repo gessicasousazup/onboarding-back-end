@@ -1,8 +1,6 @@
 package br.com.zup.onboarding.services;
 
-import br.com.zup.onboarding.api.Append.Question.QuestionCreate;
 import br.com.zup.onboarding.api.Append.Step.StepCreate;
-import br.com.zup.onboarding.api.Append.Theme.ThemeCreate;
 import br.com.zup.onboarding.models.Alternative;
 import br.com.zup.onboarding.models.Question;
 import br.com.zup.onboarding.models.Step;
@@ -18,7 +16,6 @@ public class StepService {
     @Autowired
     private StepRepository stepRepository;
 
-    @Autowired
     public Iterable<Step> showAllSteps() { return stepRepository.findAll(); }
     public long quantitySteps() { return stepRepository.count(); }
     public Step takeStepById(long id) { return stepRepository.findById(id).get(); }
@@ -57,6 +54,15 @@ public class StepService {
         stepRepository.save(step);
         return step;
     }
+    public void deleteStep(long id) { stepRepository.deleteById(id); }
+    public Step updateStep(long id, Step step) {
+        Step stepIntern;
+        stepIntern = stepRepository.findById(id).get();
 
-
+        if (stepIntern != null) {
+            step.setId(id);
+            return stepRepository.save(step);
+        }
+        return null;
+    }
 }
