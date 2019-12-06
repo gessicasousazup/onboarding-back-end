@@ -13,9 +13,6 @@ public class Question implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
-	private Theme theme;
-
 	@NotNull
 	private String description;
 

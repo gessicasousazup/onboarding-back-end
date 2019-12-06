@@ -1,7 +1,6 @@
 package br.com.zup.onboarding.models;
 
 //Importações necessárias
-import com.sun.istack.NotNull;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -15,17 +14,12 @@ public class Step implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private User user;
-
-    @NotNull
     private String stepName;
     private String description;
-    @NotNull
     private String duration;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Theme> theme;
+    private List<Question> question;
 
     //Construtores da classe
     public Step() { }
@@ -55,10 +49,13 @@ public class Step implements Serializable {
     public void setDuration(String duration) {
         this.duration = duration;
     }
-    public List<Theme> getTheme() {
-        return this.theme;
-    }
-    public void setTheme(List<Theme> theme) {
-        this.theme = theme;
-    }
+
+	public List<Question> getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(List<Question> question) {
+		this.question = question;
+	}
+   
 }

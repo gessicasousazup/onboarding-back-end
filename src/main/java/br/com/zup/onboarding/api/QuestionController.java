@@ -20,7 +20,8 @@ public class QuestionController {
 
 	@GetMapping("/")
 	public ResponseEntity<?> showQuestions(HttpSession session) {
-		if (questionService.quantityQuestions() > 0) return ResponseEntity.ok(questionService.showAllQuestions());
+		if (questionService.quantityQuestions() > 0)
+			return ResponseEntity.ok(questionService.showAllQuestions());
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
